@@ -1,8 +1,8 @@
 name: Main workflow
 on: push
-env: # Set the secret as an input
+env: 
   docker_username: ${{ github.actor }} 
-  docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
+  docker_password: ${{ secrets.GITHUB_TOKEN }} 
   GIT_COMMIT: ${{ github.sha }}
 jobs:
   Build:
@@ -58,12 +58,12 @@ jobs:
      needs: Docker-image
      steps:
      - name: Download code
-     uses: actions/download-artifact@v4
-      with:
+       uses: actions/download-artifact@v4
+       with:
         name: code
         path: .
-    - name: Execute component test
-      run: bash ci/component-test.sh
+     - name: Execute component test
+       run: bash ci/component-test.sh
   Performance-test:
     runs-on: ubuntu-latest
     needs: Docker-image
